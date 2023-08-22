@@ -1,25 +1,30 @@
 package com.example.recyclerview.adapter
 
+import android.content.DialogInterface.OnClickListener
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recyclerview.R
 import com.example.recyclerview.SuperHeroe
+import com.example.recyclerview.databinding.ItemSuperheroeBinding
 
-class SuperHeroeViewHolder (val view: View):RecyclerView.ViewHolder(view) {
+class SuperHeroeViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-    val superHeroe = view.findViewById<TextView>(R.id.tvSuperHeroe)
-    val nombreReal = view.findViewById<TextView>(R.id.tvNombreReal)
-    val publicista = view.findViewById<TextView>(R.id.tvPublicista)
-    val foto = view.findViewById<ImageView>(R.id.ivSuperheroe)
+    val binding = ItemSuperheroeBinding.bind(view)
 
-    fun render (superHeroeModelo : SuperHeroe) {
-        superHeroe.text = superHeroeModelo.superHeroe
-        nombreReal.text = superHeroeModelo.nombreReal
-        publicista.text = superHeroeModelo.publicista
-        Glide.with(foto.context).load(superHeroeModelo.foto).into(foto)
+
+    fun render(superHeroeModelo: SuperHeroe, onClickListener: (SuperHeroe)->Unit) {
+        binding.tvSuperHeroe.text = superHeroeModelo.superHeroe
+        binding.tvNombreReal.text = superHeroeModelo.nombreReal
+        binding.tvPublicista.text = superHeroeModelo.publicista
+        Glide.with(binding.ivSuperheroe.context).load(superHeroeModelo.foto)
+            .into(binding.ivSuperheroe)
+        itemView.setOnClickListener{
+            onClickListener(superHeroeModelo)
+        }
     }
 
 }

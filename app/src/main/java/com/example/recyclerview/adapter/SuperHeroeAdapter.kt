@@ -1,12 +1,13 @@
 package com.example.recyclerview.adapter
 
+import android.content.DialogInterface.OnClickListener
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerview.R
 import com.example.recyclerview.SuperHeroe
 
-class SuperHeroeAdapter(val superHeroeLista: List<SuperHeroe>): RecyclerView.Adapter<SuperHeroeViewHolder>() {
+class SuperHeroeAdapter(val superHeroeLista: List<SuperHeroe>, private val onClickListener: (SuperHeroe)->Unit): RecyclerView.Adapter<SuperHeroeViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuperHeroeViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return SuperHeroeViewHolder(layoutInflater.inflate(R.layout.item_superheroe, parent, false))
@@ -19,6 +20,6 @@ class SuperHeroeAdapter(val superHeroeLista: List<SuperHeroe>): RecyclerView.Ada
 
     override fun onBindViewHolder(holder: SuperHeroeViewHolder, position: Int) {
         val item = superHeroeLista[position]
-        holder.render(item)
+        holder.render(item, onClickListener)
     }
 }
